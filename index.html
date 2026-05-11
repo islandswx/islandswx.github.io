@@ -1,123 +1,886 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta name="description" content="Homepage of Wanxin Shi, East China University of Science and Technology, focusing on multimedia systems, video streaming, and edge-cloud computing.">
-  <meta name="keywords" content="Wanxin Shi, ECUST, multimedia systems, edge computing, video streaming, computer networks, AI streaming, adaptive bitrate">
-  <meta name="author" content="Wanxin Shi">
-  <meta name="robots" content="index, follow">
-  <style>body { font-family: "Times New Roman", Times, serif; }</style>
-  <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-  <link rel="stylesheet" href="jemdoc.css" type="text/css" />
-  <title>Wanxin Shi | East China University of Science and Technology | Multimedia Systems & Networking</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>AimNet Lab | 华东理工大学 · 多媒体网络与边缘计算</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Times New Roman", "Songti SC", "SimSun", serif;
+  background: linear-gradient(135deg, #f6f9fc 0%, #edf2f9 100%);
+  color: #1e2a3e;
+  line-height: 1.6;
+  padding-top: 76px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #94a3b8;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #2c6280;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+.nav-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  background: linear-gradient(130deg, #1e3c72, #2b4c7c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  letter-spacing: 0;
+}
+
+.nav-links {
+  display: flex;
+  gap: 28px;
+}
+
+.nav-links button {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #334155;
+  cursor: pointer;
+  padding: 8px 2px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.nav-links button:hover {
+  color: #0f3b5c;
+}
+
+.nav-links button.active {
+  color: #2563eb;
+  font-weight: 600;
+}
+
+.nav-links button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2.5px;
+  background: linear-gradient(90deg, #2563eb, #60a5fa);
+  border-radius: 2px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto 40px;
+  padding: 0 24px;
+  flex: 1;
+}
+
+.page {
+  display: none;
+  background: rgba(255, 255, 255, 0.98);
+  border-radius: 2rem;
+  box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08),
+              0 1px 2px rgba(0,0,0,0.02);
+  padding: 2rem 2.4rem;
+  border: 1px solid rgba(203, 213, 225, 0.4);
+  transition: box-shadow 0.2s;
+}
+
+.page.active {
+  display: block;
+  animation: fadeSlide 0.45s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.head {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  background: #fafcff;
+  border-radius: 1.8rem;
+  padding: 1.6rem 2rem;
+  margin-bottom: 2.2rem;
+  border: 1px solid #eef2ff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.avatar {
+  width: 220px;
+  height: 280px;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid #e2edf7;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.03);
+  flex-shrink: 0;
+  background: white;
+}
+
+.profile-column {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.info {
+  flex: 1;
+  min-width: 320px;
+}
+
+.profile-details {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.profile-details h1 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #1f2e4a, #2b4c7c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 6px;
+  letter-spacing: 0;
+  line-height: 1.25;
+  white-space: nowrap;
+}
+
+.profile-details .pos {
+  font-size: 0.9rem;
+  color: #2c5282;
+  background: #eef3fc;
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  padding: 0.12rem 0.72rem;
+  border-radius: 30px;
+  margin: 4px auto 0;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.profile-details .email {
+  color: #1e6f9f;
+  font-weight: 600;
+  margin-top: 5px;
+  display: inline-block;
+  background: #eef6ff;
+  padding: 3px 11px;
+  border-radius: 40px;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.about-inline {
+  margin-top: 0;
+}
+
+.about-inline h2 {
+  margin: 0 0 1rem 0;
+}
+
+.about-inline p {
+  max-width: 760px;
+}
+
+.research-directions {
+  max-width: 760px;
+  margin: 0.2rem 0 1rem 1.1rem;
+  color: #2d3a4b;
+  line-height: 1.65;
+}
+
+.research-directions li {
+  margin-bottom: 0.35rem;
+  padding-left: 0.15rem;
+}
+
+.recruitment-note {
+  max-width: 760px;
+  margin-top: 1.1rem;
+  padding: 0.85rem 1rem;
+  color: #12385a;
+  background: #eef6ff;
+  border: 1px solid #bfdcff;
+  border-radius: 10px;
+  font-weight: 700;
+  line-height: 1.65;
+  text-align: center;
+  box-shadow: inset 0 3px 0 #2563eb, inset 0 -3px 0 #2563eb;
+}
+
+.school-name {
+  font-family: inherit;
+}
+
+h2 {
+  font-size: 1.7rem;
+  font-weight: 600;
+  color: #1e2f4e;
+  margin: 2rem 0 1.2rem 0;
+  padding-bottom: 0.65rem;
+  border-bottom: 3px solid;
+  border-image: linear-gradient(90deg, #3b82f6, #93c5fd);
+  border-image-slice: 1;
+  border-bottom-style: solid;
+  display: inline-block;
+  letter-spacing: 0;
+}
+
+p {
+  color: #2d3a4b;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.item {
+  font-size: 1rem;
+  margin: 12px 0;
+  padding-left: 28px;
+  position: relative;
+  color: #254358;
+  font-weight: 470;
+}
+
+.service-group-title {
+  font-size: 1.05rem;
+  color: #15385b;
+  margin: 1.1rem 0 0.5rem;
+  font-weight: 700;
+}
+
+.item::before {
+  content: "•";
+  color: #2b6cb0;
+  position: absolute;
+  left: 0;
+}
+
+.pub-item {
+  background: #ffffff;
+  border-radius: 1.2rem;
+  padding: 1.3rem 1.6rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #eef2f6;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02);
+}
+
+.pub-item:hover {
+  border-color: #cbdff2;
+  box-shadow: 0 15px 25px -12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  background: #fefefe;
+}
+
+.pub-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+  color: #0b3954;
+}
+
+.pub-authors {
+  font-size: 0.88rem;
+  color: #4a627a;
+  margin: 6px 0;
+}
+
+.pub-venue {
+  font-size: 0.85rem;
+  color: #1e6f9f;
+  font-weight: 600;
+  background: #e7f0fa;
+  display: inline-block;
+  padding: 0.2rem 0.9rem;
+  border-radius: 30px;
+  margin: 6px 0 8px;
+}
+
+.img-inline {
+  background: linear-gradient(115deg, #f0f5fe, #fafdff);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4f7092;
+  font-weight: 500;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  font-size: 0.85rem;
+  margin: 16px 0 6px;
+  width: 100%;
+  max-width: 270px;
+  height: 120px;
+}
+
+.pub-note {
+  color: #50687f;
+  font-size: 0.95rem;
+  margin: -0.4rem 0 1.4rem;
+}
+
+.pub-section-title {
+  font-size: 1.1rem;
+  color: #15385b;
+  margin: 1.1rem 0 0.8rem;
+  font-weight: 700;
+}
+
+.featured-pub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+
+.featured-pub {
+  display: flex;
+  flex-direction: column;
+  gap: 0.95rem;
+  align-items: stretch;
+  padding: 1rem;
+}
+
+.figure-slot {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 2.25 / 1;
+  border-radius: 14px;
+  border: 1px solid #d7e6f4;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #173f63;
+  text-align: center;
+  padding: 0.55rem;
+  margin-bottom: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.figure-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.featured-pub-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.featured-pub-body .pub-title {
+  margin-bottom: 0.35rem;
+}
+
+.featured-pub-body .pub-authors {
+  margin: 0.25rem 0;
+}
+
+.featured-pub-body .pub-venue {
+  margin: 0.3rem 0 0;
+}
+
+.figure-slot .figure-label {
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: #51708a;
+  margin-bottom: 0.35rem;
+}
+
+.figure-slot .figure-title {
+  font-size: 0.96rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.figure-slot .figure-hint {
+  font-size: 0.82rem;
+  color: #5f7285;
+  margin-top: 0.4rem;
+}
+
+.pub-compact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.pub-compact-list li {
+  margin: 0 0 0.7rem 0;
+  padding: 0 0 0.7rem 1rem;
+  border-left: 3px solid #d5e3f2;
+  color: #28445c;
+  line-height: 1.55;
+}
+
+.pub-compact-list strong {
+  color: #0b3954;
+}
+
+a {
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 780px) {
+
+  body {
+    padding-top: 68px;
+  }
+
+  .nav-inner {
+    padding: 0 18px;
+    height: 64px;
+  }
+
+  .nav-links {
+    gap: 12px;
+  }
+
+  .nav-links button {
+    font-size: 0.85rem;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .container {
+    padding: 0 16px;
+  }
+
+  .page {
+    padding: 1.5rem;
+  }
+
+  .head {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-column {
+    width: 100%;
+  }
+
+  .avatar {
+    width: 180px;
+    height: 230px;
+    margin: 0 auto;
+  }
+
+  .profile-details h1 {
+    font-size: 1.25rem;
+  }
+
+  .info {
+    min-width: 0;
+  }
+
+  .about-inline {
+    text-align: left;
+  }
+
+  .featured-pub-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .figure-slot {
+    width: 100%;
+    min-width: 0;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+}
+</style>
 </head>
 
 <body>
-  
-<div style="display: flex; flex-direction: row;">
-  <div style="width: 230px; background-color: #004080; color: white; height: 100vh; padding: 20px; box-sizing: border-box; font-family: 'Times New Roman', Times, serif; position: fixed; top: 0; left: 0;">
-    <h2 style="color: white;">Wanxin</h2>
-    <div style="margin-top: 30px;">
-      <p><a href="index.html" style="color: #ffffff; font-weight: bold; text-decoration: none;">Home</a></p>
-      <p><a href="#selected-publications" style="color: #ffffff; font-weight: bold; text-decoration: none;">Publications</a></p>
-      <p><a href="#academic-services" style="color: #ffffff; font-weight: bold; text-decoration: none;">Services</a></p>
+
+<div class="navbar">
+  <div class="nav-inner">
+
+    <div class="logo">
+      AI-driven Media and Networking (AimNet Lab)
     </div>
+
+    <div class="nav-links">
+      <button class="nav-btn active" data-page="home">HOME</button>
+      <button class="nav-btn" data-page="publications">PUBLICATIONS</button>
+      <button class="nav-btn" data-page="services">SERVICES</button>
+    </div>
+
   </div>
-  <div style="flex-grow: 1; padding: 40px; font-family: 'Times New Roman', Times, serif; margin-left: 250px;">
-    
+</div>
 
-    <div id="toptitle">
-      <h1>Wanxin Shi (石婉欣)</h1>
-    </div>
+<div class="container">
 
-    <div id="layout-content">
-      <p><em>Associate Research Professor, East China University of Science and Technology</em><br />
-        <em>Email: shiwx@ecust.edu.cn</em><br />
-        <a href="https://scholar.google.com.hk/citations?user=YSmWKFMAAAAJ&hl=zh-CN">Google Scholar</a> |
-        <a href="https://github.com/islandswx">GitHub</a> |
-      </p>
+  <!-- HOME -->
+  <div class="page active" id="home">
 
-      <h2>About Me</h2>
-      <p>
-         I am currently a Lecturer and Associate Research Professor at East China University of Science and Technology. I received my Ph.D. in Computer Science (2023) from Tsinghua University, advised by Prof. Yong Jiang and Prof. Qing Li at Peng Cheng Laboratory. I completed my undergraduate studies at China University of Geosciences (Beijing), earning a bachelor's degree in Computer Science and a second degree in Law in 2017. I was a visiting researcher at Dublin City University (2022), working with Prof. Gabriel-Miro Muntean (IEEE Fellow) and a postdoctoral researcher at Fudan University (2023-2025), working with Prof. Yang Xu.<br /> <br />
-        
-        My research lies at the intersection of <strong>multimedia systems</strong>, <strong>networking</strong>, and <strong>edge-cloud computing</strong>. The related work has been published in venues such as <em>IEEE ToN</em>, <em>IEEE COMST</em>, <em>ACM MM</em>, <em>WWW</em>, <em>IEEE TMM</em> and <em>IWQoS</em>.
-      </p>
+    <div class="head">
 
-      <h2 id="selected-publications">Selected Publications</h2>
-<ul>
-<li><p><strong>[Accurate is Not Necessarily the Best: Edge-Assisted Bitrate Re-adaptation for Video Streaming]</strong><br />
-<em>IEEE Transactions on Networking (ToN), 2026</em><br />
-Wanxin Shi; Weiji Lang; Qing Li; Chao Wang; Gengbiao Shen; Lei Li; Yang Xu; Yong Jiang; Gabriel-Miro Muntean.</p></li>
-<li><p><strong>[A Survey on Intelligent Solutions for Increased Video Delivery Quality in Cloud-Edge-End Networks]</strong><br />
-<em>IEEE Communications Surveys &amp; Tutorials (COMST), 2024</em><br />
-Wanxin Shi; Qing Li; Qian Yu; Fulin Wang; Gengbiao Shen; Yong Jiang; Yang Xu; Lianbo Ma; Gabriel-Miro Muntean.</p></li>
-<li><p><strong>[Learning-based Fuzzy Bitrate Matching at the Edge for Adaptive Video Streaming]</strong><br />
-<em>International World Wide Web Conference (WWW), 2022</em><br />
-Wanxin Shi ; Qing Li; Chao Wang; Longhao Zou; Gengbiao Shen; Pei Zhang; Yong Jiang.</p></li>
-<li><p><strong>[QoE Ready to Respond: A QoE-aware MEC Selection Scheme for DASH-based Adaptive Video Streaming to Mobile Users]</strong><br />
-<em>ACM Multimedia (MM), 2021</em><br />
-Wanxin Shi ; Qing Li; Ruishan Zhang; Gengbiao Shen; Yong Jiang; Zhenhui Yuan; Gabriel-Miro Muntean.</p></li>
-<li><p><strong>[CoLEAP: Cooperative Learning-Based Edge Scheme With Caching and Prefetching for DASH Video Delivery]</strong><br />
-<em>IEEE Transactions on Multimedia (TMM), 2020</em><br />
-Wanxin Shi; Chao Wang; Yong Jiang; Qing Li; Gengbiao Shen; Gabriel-Miro Muntean.</p></li>
-<li><p><strong>[LEAP: Learning-Based Smart Edge with Caching and Prefetching for Adaptive Video Streaming]</strong><br />
-<em>IEEE/ACM International Symposium on Quality of Service (IWQoS), 2019</em><br />
-Wanxin Shi, Qing Li, Chao Wang, Gengbiao Shen, Weichao Li, Yu Wu, Yong Jiang.</p></li>
-<li><p><strong>[vPIFO: Virtualized Packet Scheduler for Programmable Hierarchical Scheduling in High-Speed Networks]</strong><br />
-<em>ACM SIGCOMM, 2024</em><br />
-Zhiyu Zhang; Shili Chen; Ruyi Yao; Ruoshi Sun; Hao Mei; Hao Wang; Zixuan Chen; Gaojian Fang; Yibo Fan; Wanxin Shi; Sen Liu; Yang Xu</p></li>
-<li><p><strong>[Reparo: QoE-Aware Live Video Streaming in Low-Rate Networks by Intelligent Frame Recovery]</strong><br />
-<em>ACM Multimedia (MM), 2023</em><br />
-Fulin Wang; Qing Li; Wanxin Shi; Gareth Tyson; Yong Jiang; Lianbo Ma; Peng Zhang; Yulong Lan; Zhicheng Li.</p></li>
-<li><p><strong>[Novel Coded Transmission Mechanism for Short Video Deliveries]</strong><br />
-<em>International World Wide Web Conference (WWW), 2024</em><br />
-Zhenge Xu; Qing Li; Wanxin Shi; Yong Jiang; Zhenhui Yuan; Peng Zhang; Gabriel-Miro Muntean.</p></li>
-<li><p><strong>[Poche: A Priority-Based Flow-Aware In-Network Caching Scheme in Data Center Networks]</strong><br />
-<em>IEEE Transactions on Network and Service Management (TNSM), 2022</em><br />
-Gengbiao Shen; Qing Li; Wanxin Shi; Feixue Han; Yong Jiang; Liang Gu.</p></li>
-<li><p><strong>[Modeling and Optimization of the Data Plane in the SDN-based DCN by Queuing]</strong><br />
-<em>Journal of Network and Computer Applications (JNCA), 2022</em><br />
-Gengbiao Shen; Qing Li; Wanxin Shi; Yong Jiang; Pei Zhang; Liang Gu; Mingwei Xu.</p></li>
-<li><p><strong>[RTCSR: Zero-latency Aware Super-resolution for WebRTC Mobile Video Streaming]</strong><br />
-<em>ACM SIGCOMM Workshop, 2023</em><br />
-Qian Yu; Qing Li; Rui He; Wanxin Shi; Yong Jiang.</p></li>
-<li><p><strong>[BiSR: Bidirectionally Optimized Super-Resolution for Mobile Video Streaming]</strong><br />
-<em>International World Wide Web Conference (WWW), 2023</em><br />
-Qian Yu; Qing Li; Rui He; Gareth Tyson; Wanxin Shi; Jianhui Lv; Zhenhui Yuan; Peng Zhang; Yulong Lan; Zhicheng Li.</p></li>
-<li><p><strong>[Rina: Enhancing Ring-AllReduce with In-network Aggregation in Distributed Model Training]</strong><br />
-<em>IEEE International Conference on Network Protocols (ICNP), 2024</em><br />
-Zixuan Chen; Xuandong Liu; Minglin Li; Yinfan Hu; Hao Mei; Huifeng Xing; Hao Wang; Wanxin Shi; Sen Liu; Yang Xu.</p></li>
-<li><p><strong>[MacSR: Macroblock-aware Lightweight Video Super-Resolution]</strong><br />
-<em>IData Compression Conference (DCC), 2023</em><br />
-Rui He; Qing Li; Qian Yu; Zhenhui Yuan; Wanxin Shi; Jianhui Lv; Yi Han.</p></li>
-<li><p><strong>[Soter: Deep Learning Enhanced In-Network Attack Detection Based on Programmable Switches]</strong><br />
-<em>International Symposium on Reliable Distributed Systems (SRDS), 2022</em><br />
-Guorui Xie; Qing Li; Chupeng Cui; Peican Zhu; Dan Zhao; Wanxin Shi; Zhuyun Qi; Yong Jiang; Xi Xiao.</p></li>
-</ul>
+      <div class="profile-column">
+        <div class="avatar">
+          <img src="首页照片-放在版面左侧，右边为文字.jpg" alt="Wanxin Shi profile photo">
+        </div>
 
-<hr />
+        <div class="profile-details">
+          <h1>Wanxin Shi (石婉欣)</h1>
 
+          <div class="pos">Associate Professor</div>
 
-      <h2 id="academic-services">Academic Services and Others</h2>
-      <ul>
-        <li>Shanghai “Baiyulan Talent Program” (Pujiang Program) Awardee</li>
-        <li>Organization Committee, APNet 2024/2025 (CCF C)</li>
-        <li>Conference Reviewer, ACM MM 2023/2024/2026, WWW 2025 (CCF A)</li>
-        <li>Shanghai Super Postdoctoral Fellowship, Fudan University, 2024</li>
-        <li>Outstanding Ph.D. Graduate of Beijing, Tsinghua University, 2023</li>
-        <li>CSC Scholarship for Overseas Study, China Scholarship Council, 2022</li>
-        <li>Outstanding Undergraduate Graduate of Beijing, China University of Geosciences (Beijing), 2017</li>
-        <li>Beijing Outstanding Student Award, China University of Geosciences (Beijing), 2017</li>
-      </ul>
+          <div class="pos school-name">
+            ECUST
+          </div>
 
-      <div id="footer">
-        <div id="footer-text">
-          Generated using jemdoc style · © Wanxin Shi
+          <div class="email">
+            shiwx@ecust.edu.cn
+          </div>
         </div>
       </div>
+
+      <div class="info">
+
+        <div class="about-inline">
+          <h2>About Me</h2>
+
+          <p>
+            I am currently an Associate Professor at
+            <span class="school-name">
+              East China University of Science and Technology
+            </span>.
+            I received my Ph.D. in Computer Science (2023) from
+            <span class="school-name">
+              Tsinghua University
+            </span>,
+            advised by
+            <a href="https://www.sigs.tsinghua.edu.cn/jy/main.htm" target="_blank">
+              Prof. Yong Jiang
+            </a>
+            and
+            <a href="https://sites.google.com/view/tsing/home" target="_blank">
+              Prof. Qing Li
+            </a>
+            at Peng Cheng Laboratory. I completed my undergraduate studies at
+            <span class="school-name">
+              China University of Geosciences (Beijing)
+            </span>,
+            earning a bachelor's degree in Computer Science and a second degree in Law in 2017. I was a visiting researcher at
+            <span class="school-name">
+              Dublin City University
+            </span>
+            (2022), working with
+            <a href="https://www.dcu.ie/computing/people/gabriel-miro-muntean" target="_blank">
+              Prof. Gabriel-Miro Muntean
+            </a>
+            (IEEE Fellow)
+            and a postdoctoral researcher at
+            <span class="school-name">
+              Fudan University
+            </span>
+            (2023–2025), working with
+            <a href="https://yangxu.info/" target="_blank">
+              Prof. Yang Xu
+            </a>.
+          </p>
+
+          <p>
+            My group, AI-driven Media and Networking (AimNet Lab), focuses on AI-driven media systems, networking, and intelligent infrastructure. Current research directions include:
+          </p>
+
+          <ul class="research-directions">
+            <li>Cloud-edge-end collaborative intelligent network distribution and optimization.</li>
+            <li>Enhancement and restoration for videos and AI-generated media content.</li>
+            <li>Communication acceleration for AI computing clusters.</li>
+            <li>High-performance interconnection and storage optimization for large-model serving.</li>
+            <li>Security of emerging AI agent systems.</li>
+          </ul>
+
+          <p>
+            My research has been published in leading venues including IEEE/ACM Transactions on Networking, IEEE Communications Surveys & Tutorials, ACM WWW, ACM Multimedia, IEEE Transactions on Multimedia, and IEEE/ACM IWQoS.
+          </p>
+
+          <div class="recruitment-note">
+            I am looking for self-motivated students and postdocs to join my group. Please email me with your CV if interested.
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
   </div>
-</div></div></body>
+
+  <!-- PUBLICATIONS -->
+
+<div class="page" id="publications">
+
+  <h2>Selected Publications</h2>
+  <p class="pub-note">Six representative papers are shown with paper figures on the left. The rest are listed below in compact form.</p>
+
+  <div class="featured-pub-grid">
+    <div class="pub-item featured-pub">
+      <div class="figure-slot">
+        <img src="paper-1.png" alt="Figure for Edge-Assisted Bitrate Re-adaptation">
+      </div>
+      <div class="featured-pub-body">
+        <div class="pub-title">Accurate is Not Necessarily the Best: Edge-Assisted Bitrate Re-adaptation for Video Streaming</div>
+        <div class="pub-authors">Wanxin Shi; Weijia Lang; Qing Li; Chao Wang; Gengbiao Shen; Lei Li; Yang Xu; Yong Jiang; Gabriel-Miro Muntean</div>
+        <div class="pub-venue">IEEE Transactions on Networking (ToN), 2026 (CCF A)</div>
+      </div>
+    </div>
+
+    <div class="pub-item featured-pub">
+      <div class="figure-slot">
+        <img src="paper-2.png" alt="Figure for ReparoV2 live video streaming">
+      </div>
+      <div class="featured-pub-body">
+        <div class="pub-title">ReparoV2: QoE-aware Live Video Streaming under Low-Bandwidth Networks</div>
+        <div class="pub-authors">Fulin Wang; Qing Li; Wanxin Shi; Qian Yu; Gareth Tyson; Yong Jiang; Jianhui Lv; Zhenhui Yuan</div>
+        <div class="pub-venue">IEEE Transactions on Mobile Computing (TMC), 2026 (CCF A)</div>
+      </div>
+    </div>
+
+    <div class="pub-item featured-pub">
+      <div class="figure-slot">
+        <img src="paper-3.png" alt="Figure for cloud-edge-end video delivery survey">
+      </div>
+      <div class="featured-pub-body">
+        <div class="pub-title">A Survey on Intelligent Solutions for Increased Video Delivery Quality in Cloud-Edge-End Networks</div>
+        <div class="pub-authors">Wanxin Shi; Qing Li; Qian Yu; Fulin Wang; Gengbiao Shen; Yong Jiang; Yang Xu; Lianbo Ma; Gabriel-Miro Muntean</div>
+        <div class="pub-venue">IEEE Communications Surveys & Tutorials (COMST), 2024, 27(2): 1363-1394 (IF 34.4, CAS Q1)</div>
+      </div>
+    </div>
+
+    <div class="pub-item featured-pub">
+      <div class="figure-slot">
+        <img src="paper-4.png" alt="Figure for fuzzy bitrate matching">
+      </div>
+      <div class="featured-pub-body">
+        <div class="pub-title">Learning-based Fuzzy Bitrate Matching at the Edge for Adaptive Video Streaming</div>
+        <div class="pub-authors">Wanxin Shi; Qing Li; Chao Wang; Longhao Zou; Gengbiao Shen; Pei Zhang; Yong Jiang</div>
+        <div class="pub-venue">International World Wide Web Conference (WWW), 2022 (CCF A)</div>
+      </div>
+    </div>
+
+	    <div class="pub-item featured-pub">
+		      <div class="figure-slot">
+		        <img src="paper-5.png" alt="Figure for CoLEAP edge caching and prefetching">
+      </div>
+      <div class="featured-pub-body">
+        <div class="pub-title">CoLEAP: Cooperative Learning-Based Edge Scheme With Caching and Prefetching for DASH Video Delivery</div>
+        <div class="pub-authors">Wanxin Shi; Chao Wang; Yong Jiang; Qing Li; Gengbiao Shen; Gabriel-Miro Muntean</div>
+	        <div class="pub-venue">IEEE Transactions on Multimedia (TMM), 2021, 23: 3631-3645 (IF 7.8, CAS Q1)</div>
+	      </div>
+	    </div>
+
+	    <div class="pub-item featured-pub">
+		      <div class="figure-slot">
+		        <img src="paper-6.png" alt="Figure for QoE-aware MEC selection">
+		      </div>
+	      <div class="featured-pub-body">
+	        <div class="pub-title">QoE Ready to Respond: A QoE-aware MEC Selection Scheme for DASH-based Adaptive Video Streaming to Mobile Users</div>
+	        <div class="pub-authors">Wanxin Shi; Qing Li; Ruishan Zhang; Gengbiao Shen; Yong Jiang; Zhenhui Yuan; Gabriel-Miro Muntean</div>
+	        <div class="pub-venue">ACM Multimedia (ACM MM), 2021 (CCF A)</div>
+	      </div>
+	    </div>
+	  </div>
+
+  <div class="pub-section-title">Other Publications</div>
+  <ul class="pub-compact-list">
+	    <li><strong>AIRP: Accelerating Multi-tenant Distributed Learning with In-network Resource Pooling</strong> - IEEE Transactions on Networking 2026 (CCF A)</li>
+    <li><strong>3D-INA: An Exploration of Integrating In-Network Aggregation into 3D Parallelism for LLM Training</strong> - INFOCOM 2026 (CCF A)</li>
+    <li><strong>LEAP: Learning-Based Smart Edge with Caching and Prefetching for Adaptive Video Streaming</strong> - IWQoS 2019 (CCF B)</li>
+    <li><strong>Reparo: QoE-Aware Live Video Streaming in Low-Rate Networks by Intelligent Frame Recovery</strong> - ACM Multimedia 2023 (CCF A)</li>
+    <li><strong>NCTM: A Novel Coded Transmission Mechanism for Short Video Deliveries</strong> - WWW 2024 (CCF A)</li>
+    <li><strong>Poche: A Priority-Based Flow-Aware In-Network Caching Scheme in Data Center Networks</strong> - IEEE Transactions on Network and Service Management 2022 (CCF B)</li>
+    <li><strong>Modeling and Optimization of the Data Plane in the SDN-based DCN by Queuing Theory</strong> - Journal of Network and Computer Applications 2022</li>
+    <li><strong>Rina: Enhancing Ring-AllReduce with In-network Aggregation in Distributed Model Training</strong> - ICNP 2024 (CCF B)</li>
+    <li><strong>RTCSR: Zero-latency Aware Super-resolution for WebRTC Mobile Video Streaming</strong> - SIGCOMM Workshop 2023 (CCF A)</li>
+  </ul>
+
+</div>
+
+  <!-- SERVICES -->
+  <div class="page" id="services">
+
+    <h2>Academic Services & Honors</h2>
+
+    <h3 class="service-group-title">Honors and Awards</h3>
+
+    <div class="item">
+      <strong>2025</strong> CCF Internet and Network & Data Communications Committee Doctoral Dissertation Incentive Program Nomination, Tsinghua University
+    </div>
+
+    <div class="item">
+      <strong>2024</strong> Shanghai Super Postdoctoral Fellow, Fudan University
+    </div>
+
+    <div class="item">
+      <strong>2023</strong> Beijing Outstanding Ph.D. Graduate, Tsinghua University
+    </div>
+
+    <div class="item">
+      <strong>2022</strong> China Scholarship Council Overseas Study Scholarship, Tsinghua University
+    </div>
+
+    <div class="item">
+      <strong>2017</strong> Beijing Outstanding Undergraduate Graduate, China University of Geosciences (Beijing)
+    </div>
+
+    <div class="item">
+      <strong>2017</strong> Beijing Excellent Student, China University of Geosciences (Beijing)
+    </div>
+
+    <h3 class="service-group-title">Academic Service</h3>
+
+    <div class="item">
+      <strong>APNet 2025</strong> Organization Committee member (CCF C)
+    </div>
+
+    <div class="item">
+      <strong>IWQoS 2026</strong> Organization Committee member (CCF B)
+    </div>
+
+    <div class="item">
+      <strong>Reviewer</strong> ACM MM 2024 / ACM MM 2023 / ACM WWW 2025 (CCF A)
+    </div>
+
+    <div class="item">
+      <strong>Reviewer</strong> Computer Networks Journal (CCF B)
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const buttons = document.querySelectorAll('.nav-btn');
+const pages = document.querySelectorAll('.page');
+
+function switchToPage(pageId) {
+
+  pages.forEach(page => page.classList.remove('active'));
+
+  const targetPage = document.getElementById(pageId);
+
+  if (targetPage) {
+    targetPage.classList.add('active');
+  }
+
+  buttons.forEach(btn => {
+
+    if (btn.dataset.page === pageId) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+
+  });
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+buttons.forEach(btn => {
+
+  btn.addEventListener('click', () => {
+
+    const target = btn.dataset.page;
+
+    if (target) {
+      switchToPage(target);
+    }
+
+  });
+
+});
+
+</script>
+
+</body>
 </html>
